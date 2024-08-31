@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/apostador")
 public class ApostadorController {
@@ -34,12 +36,12 @@ public class ApostadorController {
     PasswordEncoder passwordEncoder;
 
     @PostMapping("/crear")
-    public ApostadorDTO registrarApostador(@RequestBody ApostadorLoginDTO apostadorDTO) {
-        return new ApostadorDTO( apostadorService.crearApostador(apostadorDTO.getDni(), passwordEncoder.encode(apostadorDTO.getClave()), apostadorDTO.getEsAdmin()));
+    public ApostadorDTO registrarApostador(@RequestBody @Valid ApostadorLoginDTO apostadorDTO) {
+        return new ApostadorDTO( apostadorService.crearApostador(apostadorDTO.getDni(), passwordEncoder.encode(apostadorDTO.getClave()), apostadorDTO.getNombre() ,apostadorDTO.getEsAdmin()));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody ApostadorLoginDTO authRequest) {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid ApostadorLoginDTO authRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getDni(), authRequest.getClave())

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class Carrera {
 
@@ -31,8 +32,16 @@ public abstract class Carrera {
         return this.fechaYHora.isBefore(LocalDateTime.now());
     }
 
-    public float premio(Apuesta apuesta){
-        return 0;
+    public void premio(Apuesta apuesta){
+        long apuestasAlMismoCaballos = apuestas.stream().filter(apuesta1 -> {
+            return apuesta1.getCaballo().getNombre().equals(apuesta.getCaballo().getNombre());
+        }).count();
+
+        Apostador apostador = apuesta.getApostador();
+
+        float montoASumar = apuesta.montoGanado(this) * 0.05f * apuestasAlMismoCaballos;
+
+        apostador.setMontoAcumulado(apostador.getMontoAcumulado() + montoASumar);
     }
 
     public LocalDateTime getFechaYHora() {

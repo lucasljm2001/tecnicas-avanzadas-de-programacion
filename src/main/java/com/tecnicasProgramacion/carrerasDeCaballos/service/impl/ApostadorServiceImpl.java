@@ -2,6 +2,7 @@ package com.tecnicasProgramacion.carrerasDeCaballos.service.impl;
 
 import com.tecnicasProgramacion.carrerasDeCaballos.Repository.ApostadorRepository;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apostador;
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.ElDniDebSerNumericoException;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.YaExisteElApostadorException;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.ApostadorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,21 @@ public class ApostadorServiceImpl  implements ApostadorService, UserDetailsServi
 
 
     @Override
-    public Apostador crearApostador(String dni, String clave, boolean esAdmin) {
+    public Apostador crearApostador(String dni, String clave, String nombre ,boolean esAdmin) {
         if (apostadorRepository.findByDni(dni).isPresent()) {
             throw new YaExisteElApostadorException();
         }
+        try {
+            Integer dniNumerico = Integer.parseInt(dni);
+            Apostador apostador = new Apostador(dni, clave, nombre, esAdmin);
 
-        Apostador apostador = new Apostador(dni, clave, esAdmin);
+            apostadorRepository.save(apostador);
+            return apostador;
+        } catch (NumberFormatException e) {
+            throw new ElDniDebSerNumericoException();
+        }
 
-        apostadorRepository.save(apostador);
-        return apostador;
+
     }
 
     @Override
