@@ -10,5 +10,9 @@ public class HelloWorldController {
     public String helloWorld() {
         return "Hola Mundo!";
     }
+    @GetMapping("/autorizado")
+    public String autorizado() {
+        return "Autorizado!";
+    }
 }
 
