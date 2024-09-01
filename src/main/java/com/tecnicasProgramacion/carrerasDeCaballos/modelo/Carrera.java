@@ -1,14 +1,18 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class Carrera {
 
     private LocalDateTime fechaYHora;
+    @Setter
     private List<Caballo> posiciones;
     private Set<Caballo> competidores;
     private int id;
@@ -26,16 +30,49 @@ public abstract class Carrera {
         this.apuestas = apuestas;
     }
 
-    public abstract void determinarPosicones();
+    public abstract double totalDeVelocidad();
+
+    public abstract double velocidadDelCaballo(Caballo caballo);
+
+    public void determinarPosicones(){
+        List<Caballo> caballosList = new ArrayList<>(competidores);
+        List<Caballo> posicionesAsignadas = new ArrayList<>();
+
+        Random random = new Random();
+
+        int posicion = 1;
+        while (!caballosList.isEmpty()) {
+            double totalVelocidad = this.totalDeVelocidad();
+
+            double randomValue = random.nextDouble() * totalVelocidad;
+
+            double acumulado = 0;
+            Caballo caballoElegido = null;
+            for (Caballo caballo : caballosList) {
+                acumulado += this.velocidadDelCaballo(caballo);
+                if (acumulado >= randomValue) {
+                    caballoElegido = caballo;
+                    break;
+                }
+            }
+
+            if (caballoElegido != null) {
+                posicionesAsignadas.add(caballoElegido);
+                caballosList.remove(caballoElegido);
+            }
+
+
+
+        }
+        this.setPosiciones(posicionesAsignadas);
+    }
 
     public boolean esCarreraIniciada(){
         return this.fechaYHora.isBefore(LocalDateTime.now());
     }
 
     public void premio(Apuesta apuesta){
-        long apuestasAlMismoCaballos = apuestas.stream().filter(apuesta1 -> {
-            return apuesta1.getCaballo().getNombre().equals(apuesta.getCaballo().getNombre());
-        }).count();
+        long apuestasAlMismoCaballos = apuestas.stream().filter(apuesta1 -> apuesta1.getCaballo().getNombre().equals(apuesta.getCaballo().getNombre())).count();
 
         Apostador apostador = apuesta.getApostador();
 

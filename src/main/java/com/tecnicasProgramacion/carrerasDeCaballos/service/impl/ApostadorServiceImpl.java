@@ -1,6 +1,6 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.service.impl;
 
-import com.tecnicasProgramacion.carrerasDeCaballos.Repository.ApostadorRepository;
+import com.tecnicasProgramacion.carrerasDeCaballos.repository.ApostadorRepository;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apostador;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.ElDniDebSerNumericoException;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.YaExisteElApostadorException;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,4 +1,4 @@
-package com.tecnicasProgramacion.carrerasDeCaballos.Repository;
+package com.tecnicasProgramacion.carrerasDeCaballos.repository;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apostador;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
