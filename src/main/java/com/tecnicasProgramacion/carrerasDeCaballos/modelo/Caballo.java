@@ -1,6 +1,6 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
-public abstract class Caballo {
+public class Caballo {
 
     private String nombre;
     private float peso;
@@ -11,11 +11,14 @@ public abstract class Caballo {
         carrera.getCompetidores().add(this);
     }
 
-    public abstract boolean esDeRaza(String raza);
 
-    public abstract float velocidad();
+    public float velocidad(){
+        return 40 / ((peso+altura+edad)*0.25f);
+    }
 
-    public abstract float velocidadConObstaculos();
+    public float velocidadConObstaculos(){
+        return velocidad()/1.6f;
+    }
 
     public String getNombre() {
         return nombre;
