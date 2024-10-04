@@ -48,8 +48,10 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/apostador/crear").permitAll()
                         .requestMatchers("/apostador/login").permitAll()
+                        .requestMatchers("/hello").permitAll()
+                        .requestMatchers("/carrera/*").permitAll()
+                        .requestMatchers("/carrera/listar/{page}/{size}").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())

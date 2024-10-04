@@ -5,4 +5,5 @@ import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apostador;
 public interface ApostadorService {
     public Apostador crearApostador(String dni,String clave, String nombre, boolean esAdmin);
 
+    public void removeAll();
 }

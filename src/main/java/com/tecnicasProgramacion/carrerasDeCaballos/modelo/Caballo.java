@@ -1,11 +1,31 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Caballo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String nombre;
     private float peso;
     private float altura;
     private int edad;
+
+    public Caballo(String nombre, float peso, float altura, int edad) {
+        this.nombre = nombre;
+        this.peso = peso;
+        this.altura = altura;
+        this.edad = edad;
+    }
+
+    public Caballo() {
+    }
 
     public void inscribir(Carrera carrera) {
         carrera.getCompetidores().add(this);

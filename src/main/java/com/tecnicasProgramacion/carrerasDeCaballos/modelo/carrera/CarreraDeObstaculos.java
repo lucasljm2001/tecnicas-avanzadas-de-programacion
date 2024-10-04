@@ -3,14 +3,20 @@ package com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apuesta;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Caballo;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Carrera;
+import jakarta.persistence.Entity;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
+@Entity
 public class CarreraDeObstaculos  extends Carrera {
 
-    public CarreraDeObstaculos(LocalDateTime fechaYHora, int id, String raza, int distancia, Set<Caballo> competidores, Set<Apuesta> apuestas) {
-        super(fechaYHora, id, raza, distancia, competidores, apuestas);
+    public CarreraDeObstaculos(LocalDateTime fechaYHora, int distancia, String nombre) {
+        super(fechaYHora, distancia, nombre);
+    }
+
+    public CarreraDeObstaculos() {
+
     }
 
     @Override

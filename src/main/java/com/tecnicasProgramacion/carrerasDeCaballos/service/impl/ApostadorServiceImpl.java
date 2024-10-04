@@ -38,6 +38,11 @@ public class ApostadorServiceImpl  implements ApostadorService, UserDetailsServi
     }
 
     @Override
+    public void removeAll() {
+        apostadorRepository.deleteAll();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String dni) throws UsernameNotFoundException {
         return apostadorRepository.findByDni(dni)
                 .orElseThrow(() -> new UsernameNotFoundException("Apostador no encontrado"));
