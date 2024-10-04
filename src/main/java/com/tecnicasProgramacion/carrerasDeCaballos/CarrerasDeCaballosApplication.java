@@ -49,19 +49,15 @@ public class CarrerasDeCaballosApplication {
 
 	@EventListener
 	public void onApplicationEvent(ContextClosedEvent event) {
-		// 1° Traer todas las tablas
 		List<Map<String, Object>> tables = jdbcTemplate.queryForList("SHOW TABLES");
 		List<String> tableNames = tables.stream()
 				.map(table -> table.values().iterator().next().toString())
 				.toList();
 
-		// 2° Desactivar el chequeo por FK
 		jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0");
 
-		// 3° Vaciar todas las tablas
 		tableNames.forEach(tableName -> jdbcTemplate.execute("TRUNCATE TABLE " + tableName));
 
-		// 4° Activar el chequeo por FK
 		jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 1");
 		apostadorService.removeAll();
 		caballoService.removeAll();
