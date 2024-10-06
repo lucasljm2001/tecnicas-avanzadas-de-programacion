@@ -25,6 +25,8 @@ public abstract class Apuesta {
     @OneToOne
     private Caballo caballo;
 
+
+
     public Apuesta(float monto, Apostador apostador, Caballo caballo) {
         this.monto = monto;
         this.apostador = apostador;

@@ -7,6 +7,8 @@ import com.tecnicasProgramacion.carrerasDeCaballos.service.CaballoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CaballoServiceImpl implements CaballoService {
 
@@ -25,6 +27,11 @@ public class CaballoServiceImpl implements CaballoService {
         caballoRepository.save(caballo);
 
         return caballo;
+    }
+
+    @Override
+    public Optional<Caballo> recuperarCaballo(String nombre) {
+        return caballoRepository.findByNombre(nombre);
     }
 
     @Override

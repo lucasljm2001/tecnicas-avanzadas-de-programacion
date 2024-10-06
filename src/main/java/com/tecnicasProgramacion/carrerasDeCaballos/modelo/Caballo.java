@@ -1,9 +1,11 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Caballo {
@@ -12,10 +14,20 @@ public class Caballo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Getter
+    @Setter
+    @Column(unique = true)
     private String nombre;
+    @Getter
     private float peso;
+    @Setter
+    @Getter
     private float altura;
+    @Getter
+    @Setter
     private int edad;
+
+
 
     public Caballo(String nombre, float peso, float altura, int edad) {
         this.nombre = nombre;
@@ -40,35 +52,5 @@ public class Caballo {
         return velocidad()/1.6f;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    public float getAltura() {
-        return altura;
-    }
-
-    public void setAltura(float altura) {
-        this.altura = altura;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
 }

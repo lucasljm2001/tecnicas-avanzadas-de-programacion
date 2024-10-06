@@ -12,11 +12,13 @@ public class CarreraInformacionDTO {
     private LocalDateTime fechaYHora;
     private int distancia;
     private List<CaballoDTO> competidores;
+    private String nombre;
 
 
     public CarreraInformacionDTO(Carrera carrera){
         this.fechaYHora = carrera.getFechaYHora();
         this.distancia = carrera.getDistancia();
+        this.nombre = carrera.getNombre();
         this.competidores = carrera.getCompetidores().stream().map(caballo -> {
             return new CaballoDTO(caballo, carrera);
         }).toList();

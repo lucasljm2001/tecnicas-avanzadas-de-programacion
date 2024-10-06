@@ -2,6 +2,7 @@ package com.tecnicasProgramacion.carrerasDeCaballos.controller;
 
 import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.ApostadorDTO;
 import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.ApostadorLoginDTO;
+import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.ApuestaDTO;
 import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.AuthResponseDTO;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.ApostadorService;
 import com.tecnicasProgramacion.carrerasDeCaballos.utils.JwtService;
@@ -12,10 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -38,6 +36,13 @@ public class ApostadorController {
     @PostMapping("/crear")
     public ApostadorDTO registrarApostador(@RequestBody @Valid ApostadorLoginDTO apostadorDTO) {
         return new ApostadorDTO( apostadorService.crearApostador(apostadorDTO.getDni(), passwordEncoder.encode(apostadorDTO.getClave()), apostadorDTO.getNombre() ,apostadorDTO.getEsAdmin()));
+    }
+
+    @PostMapping("/apostar/{carrera}/{caballo}")
+    public ApuestaDTO apostar(@PathVariable String carrera,
+                              @PathVariable String caballo,
+                              @RequestBody @Valid ApuestaDTO apuestaDTO) {
+        return new ApuestaDTO(apostadorService.apostar(apuestaDTO.getTipo(), apuestaDTO.getMonto(), caballo, carrera), carrera);
     }
 
     @PostMapping("/login")

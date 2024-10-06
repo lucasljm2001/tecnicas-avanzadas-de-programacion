@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="HttpClientEndpointsTabState">
+    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;52ea446c88a1a267c7569195c8410d62f3bf9e46&quot; value=&quot;###&amp;#10;POST http://localhost:8080/apostador/login&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;dni&amp;quot;: 1234,&amp;#10;  &amp;quot;clave&amp;quot;: &amp;quot;admin&amp;quot;,&amp;#10;  &amp;quot;nombre&amp;quot;: &amp;quot;admin&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;4af2562fa9ba90330c832f495ca1de581de51636&quot; value=&quot;###&amp;#10;GET http://localhost:8080/autorizado&amp;#10;Authorization: Bearer &amp;quot;eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0IiwiaWF0IjoxNzI4MTcyODU1LCJleHAiOjE3MjgxNzY0NTV9.fbxgJNVHwoRyv2MukpW9AvBQ6nOAoCqQ9yXUEMyAh4c&amp;quot;&quot; /&gt;&#10;  &lt;entry key=&quot;dd035c550421444aba47a12ddd25f1ae17df9c8b&quot; value=&quot;###&amp;#10;GET http://localhost:8080/hello&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
+</project>

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface CarreraService {
 
@@ -16,6 +17,10 @@ public interface CarreraService {
     public Carrera crearCarrera(LocalDateTime fechaYHora, int distancia, String nombre, TipoDeCarrera tipoCarrera);
 
     public Carrera agregarCaballo(Carrera carrera, Caballo caballo);
+
+    public Optional<Carrera> recuperarCarrera(String nombre);
+
+    public void modificarCarrera(Carrera carrera);
 
     public void removeAll();
 }

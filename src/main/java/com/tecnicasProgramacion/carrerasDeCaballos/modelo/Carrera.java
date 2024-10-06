@@ -1,9 +1,13 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.NoHaySuficientesCaballosException;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.context.annotation.Primary;
 
+import javax.validation.Constraint;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -16,15 +20,24 @@ public abstract class Carrera {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Getter
+    @Column(unique = true)
     private String nombre;
 
     @Getter
     @Setter
     private LocalDateTime fechaYHora;
+
     @Getter
     @Setter
-    @ManyToMany
-    private List<Caballo> posiciones;
+    @ManyToOne
+    private Caballo ganador;
+
+    @Getter
+    @Setter
+    @ManyToOne
+    private Caballo segundo;
+
     @Getter
     @ManyToMany
     private Set<Caballo> competidores;
@@ -39,7 +52,6 @@ public abstract class Carrera {
     public Carrera(LocalDateTime fechaYHora, int distancia, Set<Caballo> competidores, Set<Apuesta> apuestas, String nombre) {
         this.fechaYHora = fechaYHora;
         this.distancia = distancia;
-        this.posiciones = new ArrayList<Caballo>();
         this.competidores = competidores;
         this.apuestas = apuestas;
         this.nombre = nombre;
@@ -48,7 +60,6 @@ public abstract class Carrera {
     public Carrera(LocalDateTime fechaYHora, int distancia, String nombre) {
         this.fechaYHora = fechaYHora;
         this.distancia = distancia;
-        this.posiciones = new ArrayList<Caballo>();
         this.competidores = new HashSet<Caballo>();
         this.apuestas = new HashSet<Apuesta>();
         this.nombre = nombre;
@@ -67,6 +78,9 @@ public abstract class Carrera {
     public abstract double velocidadDelCaballo(Caballo caballo);
 
     public void determinarPosicones(){
+
+        if (competidores.size() < 2) throw new NoHaySuficientesCaballosException();
+
         List<Caballo> caballosList = new ArrayList<>(competidores);
         List<Caballo> posicionesAsignadas = new ArrayList<>();
 
@@ -96,7 +110,8 @@ public abstract class Carrera {
 
 
         }
-        this.setPosiciones(posicionesAsignadas);
+        this.setGanador(posicionesAsignadas.get(0));
+        this.setSegundo(posicionesAsignadas.get(1));
     }
 
     public boolean esCarreraIniciada(){

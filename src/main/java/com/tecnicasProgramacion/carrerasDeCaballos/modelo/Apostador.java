@@ -2,10 +2,7 @@ package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.apuesta.Ganador;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.ApuestaInexistenteException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Value;
@@ -26,6 +23,7 @@ public class Apostador implements UserDetails {
 
     @Getter
     @Setter
+    @Column(unique = true)
     private String dni;
     private String clave;
     @Getter
@@ -46,7 +44,7 @@ public class Apostador implements UserDetails {
 
     }
 
-    public void apostar(Carrera carrera, Caballo caballo, float monto, String tipo ) {
+    public Apuesta apostar(Carrera carrera, Caballo caballo, float monto, String tipo ) {
         Apuesta apuesta = null;
         switch (tipo) {
             case "Ganador":
@@ -58,6 +56,7 @@ public class Apostador implements UserDetails {
                 throw new ApuestaInexistenteException();
         }
         carrera.getApuestas().add(apuesta);
+        return apuesta;
     }
 
     @Override

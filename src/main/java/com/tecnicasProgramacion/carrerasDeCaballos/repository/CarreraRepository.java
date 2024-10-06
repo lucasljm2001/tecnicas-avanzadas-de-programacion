@@ -9,8 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface CarreraRepository extends JpaRepository<Carrera, Long> {
     @Query("SELECT c FROM Carrera c WHERE c.fechaYHora > :currentDateTime")
     public List<Carrera> obtenerCarrerasDisponibles(@Param("currentDateTime") LocalDateTime currentDateTime, Pageable pageable);
+
+    public Optional<Carrera> findByNombre(String nombre);
 }

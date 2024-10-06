@@ -23,8 +23,7 @@ public class Ganador  extends Apuesta {
 
     @Override
     public float montoGanado(Carrera carrera) {
-        List<Caballo> caballos = carrera.getPosiciones();
-        if (caballos.get(0).getNombre().equals(this.getCaballo().getNombre()) ) {
+        if (carrera.getGanador().getNombre().equals(this.getCaballo().getNombre()) ) {
             return this.getMonto();
         }
         return 0;
