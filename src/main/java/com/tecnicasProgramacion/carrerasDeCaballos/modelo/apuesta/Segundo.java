@@ -18,6 +18,9 @@ public class Segundo extends Apuesta {
     @Override
     public float montoGanado(Carrera carrera) {
         Set<String> caballos = new HashSet<>();
+        if (carrera.getGanador() == null || carrera.getSegundo() == null) {
+            return 0;
+        }
         caballos.add(carrera.getGanador().getNombre());
         caballos.add(carrera.getSegundo().getNombre());
         if (caballos.contains(this.getCaballo().getNombre()) ) {

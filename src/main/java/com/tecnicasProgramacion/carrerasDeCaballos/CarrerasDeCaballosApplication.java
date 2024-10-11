@@ -3,6 +3,7 @@ package com.tecnicasProgramacion.carrerasDeCaballos;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Caballo;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Carrera;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera.TipoDeCarrera;
+import com.tecnicasProgramacion.carrerasDeCaballos.service.ApuestaService;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.CarreraService;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.impl.ApostadorServiceImpl;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.impl.CaballoServiceImpl;
@@ -38,6 +39,9 @@ public class CarrerasDeCaballosApplication {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private ApuestaService apuestaServiec;
+
 	@EventListener
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		apostadorService.crearApostador("1234", passwordEncoder.encode("admin"), "admin", true);
@@ -69,6 +73,7 @@ public class CarrerasDeCaballosApplication {
 		apostadorService.removeAll();
 		caballoService.removeAll();
 		carreraService.removeAll();
+		apuestaServiec.removeAll();
 	}
 
 	public static void main(String[] args) {

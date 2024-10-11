@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface ApuestaService {
     public Apuesta crearApuesta(Apuesta apuesta);
+
+    public void removeAll();
 }

@@ -30,11 +30,12 @@ public class Apostador implements UserDetails {
     @Getter
     @Setter
     private float montoAcumulado;
+    @Getter
     private String nombre;
     @Getter
     private boolean esAdmin;
     @Getter
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Apuesta> apuestas;
 
     public Apostador(String dni, String clave, String nombre, boolean esAdmin) {

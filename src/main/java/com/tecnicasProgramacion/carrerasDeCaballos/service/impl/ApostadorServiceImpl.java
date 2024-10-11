@@ -73,7 +73,7 @@ public class ApostadorServiceImpl  implements ApostadorService, UserDetailsServi
         if (tipo==null || tipo.isBlank() || tipo.isEmpty()) throw new ElTipoDeApuestaNoPuedeSerVacioException();
         if (monto <= 0) throw new ElMontoDeLaApuestaNoPuedeSerNegativoException();
         if (carreraRecuperada.getFechaYHora().isBefore(LocalDateTime.now())) throw new LaCarreraYaInicioException();
-        if (!carreraRecuperada.getCompetidores().contains(caballoRecuperado)) throw new ElCaballoNoParticipaEnLaCarreraException();
+        if (carreraRecuperada.getCompetidores().stream().noneMatch(caballo1 -> caballo1.getNombre().equals(caballoRecuperado.getNombre()))) throw new ElCaballoNoParticipaEnLaCarreraException();
         if (carreraRecuperada.getApuestas().stream().anyMatch(apuesta -> apuesta.getApostador().getDni().equals(apostador.getDni())))
             throw new YaExisteLaApuestaException() ;
         Apuesta apuesta = apostador.apostar(carreraRecuperada, caballoRecuperado, monto, tipo);

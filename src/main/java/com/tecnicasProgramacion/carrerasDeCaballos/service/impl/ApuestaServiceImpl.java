@@ -18,4 +18,9 @@ public class ApuestaServiceImpl implements ApuestaService {
     public Apuesta crearApuesta(Apuesta apuesta) {
         return apuestaRepository.save(apuesta);
     }
+
+    @Override
+    public void removeAll() {
+        apuestaRepository.deleteAll();
+    }
 }

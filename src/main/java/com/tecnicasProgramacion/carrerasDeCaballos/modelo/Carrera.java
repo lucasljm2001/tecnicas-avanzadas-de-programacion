@@ -40,14 +40,14 @@ public abstract class Carrera {
     private Caballo segundo;
 
     @Getter
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Caballo> competidores;
 
     @Getter
     @Setter
     private int distancia;
     @Getter
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Apuesta> apuestas;
 
     public Carrera(LocalDateTime fechaYHora, int distancia, Set<Caballo> competidores, Set<Apuesta> apuestas, String nombre) {
