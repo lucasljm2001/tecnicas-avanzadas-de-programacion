@@ -3,12 +3,9 @@ package com.tecnicasProgramacion.carrerasDeCaballos.service.impl;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apuesta;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Caballo;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Carrera;
-import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.ElCaballoNoParticipaEnLaCarreraException;
-import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.LaCarreraYaInicioException;
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.*;
 import com.tecnicasProgramacion.carrerasDeCaballos.repository.ApostadorRepository;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apostador;
-import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.ElDniDebSerNumericoException;
-import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.YaExisteElApostadorException;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.ApostadorService;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.ApuestaService;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.CaballoService;
@@ -73,8 +70,12 @@ public class ApostadorServiceImpl  implements ApostadorService, UserDetailsServi
         Apostador apostador = apostadorRepository.findByDni(SecurityContextHolder.getContext().getAuthentication().getName()).get();
         Caballo caballoRecuperado = caballoService.recuperarCaballo(caballo).get();
         Carrera carreraRecuperada = carreraService.recuperarCarrera(carrera).get();
+        if (tipo==null || tipo.isBlank() || tipo.isEmpty()) throw new ElTipoDeApuestaNoPuedeSerVacioException();
+        if (monto <= 0) throw new ElMontoDeLaApuestaNoPuedeSerNegativoException();
         if (carreraRecuperada.getFechaYHora().isBefore(LocalDateTime.now())) throw new LaCarreraYaInicioException();
         if (!carreraRecuperada.getCompetidores().contains(caballoRecuperado)) throw new ElCaballoNoParticipaEnLaCarreraException();
+        if (carreraRecuperada.getApuestas().stream().anyMatch(apuesta -> apuesta.getApostador().getDni().equals(apostador.getDni())))
+            throw new YaExisteLaApuestaException() ;
         Apuesta apuesta = apostador.apostar(carreraRecuperada, caballoRecuperado, monto, tipo);
         apuestaService.crearApuesta(apuesta);
         carreraService.modificarCarrera(carreraRecuperada);

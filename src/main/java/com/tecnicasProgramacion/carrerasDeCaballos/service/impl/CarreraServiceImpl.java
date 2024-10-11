@@ -5,8 +5,9 @@ import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Carrera;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera.CarreraDeObstaculos;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera.CarreraNormal;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera.TipoDeCarrera;
-import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.YaExisteLaCarreraException;
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.*;
 import com.tecnicasProgramacion.carrerasDeCaballos.repository.CarreraRepository;
+import com.tecnicasProgramacion.carrerasDeCaballos.service.CaballoService;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.CarreraService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class CarreraServiceImpl implements CarreraService {
     @Autowired
     CarreraRepository carreraRepository;
 
+
     @Override
     public List<Carrera> obtenerCarrerasDisponibles(int pagina, int cantidadPorPagina) {
         Pageable page = PageRequest.of(pagina, cantidadPorPagina);
@@ -33,6 +35,13 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public Carrera crearCarrera(LocalDateTime fechaYHora, int distancia, String nombre, TipoDeCarrera tipoCarrera) {
+        // DEBERIA VALIDAR QUE UNA CARRERA NO SE CREE CON FECHA ANTES DE HOY? EN ESE CASO ME COMPLICARIA LAS PRUEBAS, PREGUNTAR
+        if (distancia <= 0) throw new DistanciaInvalidaException();
+        if ( nombre==null  || nombre.isBlank()) throw new NombreInvalidoException();
+        if (fechaYHora == null) throw new FechaInvalidaException();
+        if (tipoCarrera != TipoDeCarrera.CARRERA_DE_OBSTACULOS && tipoCarrera != TipoDeCarrera.CARRERA_NORMAL) {
+            throw new CarreraInexistenteException();
+        }
         if (carreraRepository.findByNombre(nombre).isPresent()) {
             throw new YaExisteLaCarreraException();
         }
@@ -45,15 +54,26 @@ public class CarreraServiceImpl implements CarreraService {
     @Override
     @Transactional
     public Carrera agregarCaballo(Carrera carrera, Caballo caballo) {
-        Carrera carreraRecuperada = carreraRepository.findById(carrera.getId()).get();
-        carreraRecuperada.agregarCompetidor(caballo);
-        carreraRepository.saveAndFlush(carreraRecuperada);
-        return carreraRecuperada;
+        Optional<Carrera> carreraRecuperada = carreraRepository.findById(carrera.getId());
+        if (carreraRecuperada.isEmpty()) throw new NoExisteLaCarreraException();
+        carreraRecuperada.get().agregarCompetidor(caballo);
+        carreraRepository.saveAndFlush(carreraRecuperada.get());
+        return carreraRecuperada.get();
     }
 
     @Override
     public Optional<Carrera> recuperarCarrera(String nombre) {
-        return carreraRepository.findByNombre(nombre);
+        Optional<Carrera> carreraRecuperada = carreraRepository.findByNombre(nombre);
+        if (carreraRecuperada.isEmpty()) throw new NoExisteLaCarreraException();
+        return carreraRecuperada;
+    }
+
+    @Override
+    public Carrera iniciarCarrera(Carrera carrera) {
+        // PREGUNTAR SI TIENE SENTIDO QUE LA CARRERA INICIE SIN APUESTAS
+        if (carrera.getGanador()!=null) throw new CarreraYaJugadaException();
+        carrera.determinarPosicones();
+        return carreraRepository.save(carrera);
     }
 
     @Override

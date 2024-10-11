@@ -1,6 +1,7 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.service.impl;
 
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Caballo;
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.NoExisteElCaballoException;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.YaExisteElCaballoException;
 import com.tecnicasProgramacion.carrerasDeCaballos.repository.CaballoRepository;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.CaballoService;
@@ -31,7 +32,9 @@ public class CaballoServiceImpl implements CaballoService {
 
     @Override
     public Optional<Caballo> recuperarCaballo(String nombre) {
-        return caballoRepository.findByNombre(nombre);
+        Optional<Caballo> caballo = caballoRepository.findByNombre(nombre);
+        if (caballo.isEmpty()) throw new NoExisteElCaballoException();
+        return caballo;
     }
 
     @Override

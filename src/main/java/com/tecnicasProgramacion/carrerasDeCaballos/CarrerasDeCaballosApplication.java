@@ -45,11 +45,12 @@ public class CarrerasDeCaballosApplication {
 		Caballo caballo = caballoService.crearCaballo("veloz", 50.0f, 10f, 5);
 		Caballo caballo1 = caballoService.crearCaballo("caballo1", 40f, 22f, 10);
 		Caballo caballo2 = caballoService.crearCaballo("caballo2", 20f, 33f, 23);
-		Carrera carrera = carreraService.crearCarrera(LocalDateTime.of(2024, 10, 10, 10, 10), 100, "carrera1", TipoDeCarrera.CARRERA_NORMAL);
+		Caballo caballo3 = caballoService.crearCaballo("caballo3", 44f, 11f, 33);
+		Carrera carrera = carreraService.crearCarrera(LocalDateTime.of(2024, 12, 10, 10, 10), 100, "carrera1", TipoDeCarrera.CARRERA_NORMAL);
 		carreraService.agregarCaballo(carrera, caballo);
 		carreraService.agregarCaballo(carrera, caballo1);
 		carreraService.agregarCaballo(carrera, caballo2);
-		Carrera carrera2 = carreraService.crearCarrera(LocalDateTime.of(2024, 10, 10, 10, 10), 100, "carrera2", TipoDeCarrera.CARRERA_NORMAL);
+		Carrera carrera2 = carreraService.crearCarrera(LocalDateTime.of(2024, 12, 10, 10, 10), 100, "carrera2", TipoDeCarrera.CARRERA_NORMAL);
 		Carrera iniciada = carreraService.crearCarrera(LocalDateTime.of(2024, 9, 10, 10, 10), 100, "iniciada", TipoDeCarrera.CARRERA_NORMAL);
 	}
 

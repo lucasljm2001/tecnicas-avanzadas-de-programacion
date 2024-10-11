@@ -13,8 +13,8 @@ public class Ganador  extends Apuesta {
 
 
 
-    public Ganador(float monto, Apostador apostador, Caballo caballo) {
-        super(monto, apostador, caballo);
+    public Ganador(float monto, Apostador apostador, Caballo caballo, Carrera carrera) {
+        super(monto, apostador, caballo, carrera);
     }
 
     public Ganador() {

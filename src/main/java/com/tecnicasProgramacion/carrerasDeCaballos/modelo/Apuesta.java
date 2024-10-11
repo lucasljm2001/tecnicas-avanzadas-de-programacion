@@ -19,18 +19,22 @@ public abstract class Apuesta {
     private float monto;
     @Getter
     @Setter
-    @OneToOne
+    @ManyToOne
     private Apostador apostador;
     @Getter
-    @OneToOne
+    @ManyToOne
     private Caballo caballo;
+    @Getter
+    @ManyToOne
+    private Carrera carrera;
 
 
 
-    public Apuesta(float monto, Apostador apostador, Caballo caballo) {
+    public Apuesta(float monto, Apostador apostador, Caballo caballo, Carrera carrera) {
         this.monto = monto;
         this.apostador = apostador;
         this.caballo = caballo;
+        this.carrera = carrera;
     }
 
     public Apuesta() {

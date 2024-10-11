@@ -1,5 +1,6 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera.TipoDeCarrera;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.NoHaySuficientesCaballosException;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -112,6 +113,10 @@ public abstract class Carrera {
         }
         this.setGanador(posicionesAsignadas.get(0));
         this.setSegundo(posicionesAsignadas.get(1));
+
+        this.setFechaYHora(LocalDateTime.now());
+
+        this.apuestas.forEach(this::premio);
     }
 
     public boolean esCarreraIniciada(){
@@ -124,7 +129,7 @@ public abstract class Carrera {
 
     public float porcentajeDePago(Caballo caballo){
         long apuestasAlMismoCaballo = apuestasAlMismoCaballo(caballo);
-        return  1 -  (0.05f * apuestasAlMismoCaballo); //  PREGUNTAR, ESTE CALCULO NO ES MUY REAL
+        return  1 -  (0.05f * apuestasAlMismoCaballo); //  PREGUNTAR, ESTE CALCULO NO ES MUY REAL, ADEMAS PERMITE SALDO NEGATIVO, ES CORRECTO?
     }
 
     public void premio(Apuesta apuesta){
@@ -141,6 +146,8 @@ public abstract class Carrera {
     public void setId(int id) {
         this.id = id;
     }
+
+    public abstract TipoDeCarrera getTipoCarrera();
 
 
 }

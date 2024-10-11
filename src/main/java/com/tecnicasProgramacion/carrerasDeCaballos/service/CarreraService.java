@@ -20,6 +20,8 @@ public interface CarreraService {
 
     public Optional<Carrera> recuperarCarrera(String nombre);
 
+    public Carrera iniciarCarrera(Carrera carrera);
+
     public void modificarCarrera(Carrera carrera);
 
     public void removeAll();

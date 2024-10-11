@@ -29,4 +29,9 @@ public class CarreraNormal  extends Carrera {
     public double velocidadDelCaballo(Caballo caballo) {
         return caballo.velocidad();
     }
+
+    @Override
+    public TipoDeCarrera getTipoCarrera() {
+        return TipoDeCarrera.CARRERA_DE_OBSTACULOS;
+    }
 }

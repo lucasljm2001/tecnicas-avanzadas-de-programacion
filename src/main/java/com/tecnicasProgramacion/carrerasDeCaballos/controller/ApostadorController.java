@@ -1,17 +1,16 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.controller;
 
-import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.ApostadorDTO;
-import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.ApostadorLoginDTO;
-import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.ApuestaDTO;
-import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.AuthResponseDTO;
+import com.tecnicasProgramacion.carrerasDeCaballos.controller.dto.*;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.ApostadorService;
 import com.tecnicasProgramacion.carrerasDeCaballos.utils.JwtService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +37,11 @@ public class ApostadorController {
         return new ApostadorDTO( apostadorService.crearApostador(apostadorDTO.getDni(), passwordEncoder.encode(apostadorDTO.getClave()), apostadorDTO.getNombre() ,apostadorDTO.getEsAdmin()));
     }
 
+    @GetMapping("/perfil")
+    public ApostadorDTO perfil() {
+        return new ApostadorDTO(apostadorService.recuperarApostador(SecurityContextHolder.getContext().getAuthentication().getName()).get());
+    }
+
     @PostMapping("/apostar/{carrera}/{caballo}")
     public ApuestaDTO apostar(@PathVariable String carrera,
                               @PathVariable String caballo,
@@ -60,7 +64,7 @@ public class ApostadorController {
             return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
 
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body("Credenciales inválidas");
+            return ResponseEntity.status(401).body(new ErrorDTO("Credenciales invalidas"));
         }
     }
 

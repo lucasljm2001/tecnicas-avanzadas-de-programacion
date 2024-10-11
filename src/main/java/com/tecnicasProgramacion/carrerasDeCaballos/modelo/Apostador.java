@@ -1,6 +1,7 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.apuesta.Ganador;
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.apuesta.Segundo;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.ApuestaInexistenteException;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,7 +31,11 @@ public class Apostador implements UserDetails {
     @Setter
     private float montoAcumulado;
     private String nombre;
+    @Getter
     private boolean esAdmin;
+    @Getter
+    @OneToMany
+    private List<Apuesta> apuestas;
 
     public Apostador(String dni, String clave, String nombre, boolean esAdmin) {
         this.dni = dni;
@@ -48,14 +53,16 @@ public class Apostador implements UserDetails {
         Apuesta apuesta = null;
         switch (tipo) {
             case "Ganador":
-                apuesta = new Ganador(monto, this, caballo);
+                apuesta = new Ganador(monto, this, caballo, carrera);
                 break;
             case "Segundo":
+                apuesta = new Segundo(monto, this, caballo, carrera);
                 break;
             default:
                 throw new ApuestaInexistenteException();
         }
         carrera.getApuestas().add(apuesta);
+        this.getApuestas().add(apuesta);
         return apuesta;
     }
 

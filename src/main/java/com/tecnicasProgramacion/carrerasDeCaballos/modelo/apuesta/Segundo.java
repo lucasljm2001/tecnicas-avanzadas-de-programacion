@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 public class Segundo extends Apuesta {
-    public Segundo(float monto, Apostador apostador, Caballo caballo) {
-        super(monto, apostador, caballo);
+    public Segundo(float monto, Apostador apostador, Caballo caballo,  Carrera carrera) {
+        super(monto, apostador, caballo, carrera);
     }
 
     @Override

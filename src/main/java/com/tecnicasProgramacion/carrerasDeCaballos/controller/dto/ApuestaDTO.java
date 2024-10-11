@@ -27,5 +27,12 @@ public class ApuestaDTO {
     public ApuestaDTO() {
     }
 
+    public ApuestaDTO(Apuesta apuesta) {
+        this.tipo = apuesta.getClass().getSimpleName();
+        this.monto = apuesta.getMonto();
+        this.caballo = apuesta.getCaballo().getNombre();
+        this.carrera = apuesta.getCarrera().getNombre();
+    }
+
 
 }
