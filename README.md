@@ -15,4 +15,4 @@ requerimientos:
 
 ## Documentacion
 Se disponibiliza la [documentacion de la API](https://documenter.getpostman.com/view/31014906/2sAXxS7qt5) 
-realizada a partir de la tambien disponibilizada [coleccion de postman](.documentacion/Trabajo%20Practico%20-Tecnicas%20Avanzadas%20de%20Programacion%20-%20Carreras%20de%20Caballos.postman_collection.json)
+realizada a partir de la tambien disponibilizada [coleccion de postman](documentacion/Trabajo%20Practico%20-Tecnicas%20Avanzadas%20de%20Programacion%20-%20Carreras%20de%20Caballos.postman_collection.json)
