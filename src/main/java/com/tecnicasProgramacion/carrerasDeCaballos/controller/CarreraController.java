@@ -8,6 +8,7 @@ import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apostador;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Caballo;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Carrera;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.NoEsAdminException;
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.PaginaInvalidaException;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.ApostadorService;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.CaballoService;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.CarreraService;
@@ -38,6 +39,7 @@ public class CarreraController {
     public List<CarreraInformacionDTO> obtenerCarrerasPaginadas(
             @PathVariable int page,
             @PathVariable int size) {
+        if (page < 0) throw new PaginaInvalidaException();
         Pageable pageable = PageRequest.of(page, size);
         return carreraService.obtenerCarrerasDisponibles(page, size).stream().map(CarreraInformacionDTO::new).toList();
     }

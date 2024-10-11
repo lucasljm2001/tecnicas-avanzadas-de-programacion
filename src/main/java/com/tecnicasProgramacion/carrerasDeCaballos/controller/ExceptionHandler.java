@@ -70,6 +70,11 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<ErrorDTO> handlePaginaInvalida(PaginaInvalidaException e) {
+        return ResponseEntity.badRequest().body(new ErrorDTO(e.getMessage()));
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
     public ResponseEntity<ErrorDTO> handleNombreInvalido(NombreInvalidoException e) {
         return ResponseEntity.badRequest().body(new ErrorDTO(e.getMessage()));
     }
