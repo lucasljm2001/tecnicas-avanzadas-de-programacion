@@ -12,11 +12,16 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 public class MockMVCConfig {
     @Bean
     public ObjectMapper objectMapper() {
-        return new ObjectMapper();
+        return new ObjectMapper().registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
     }
 
     @Bean
     public MockMvc mockMvcApostador(ApostadorController apostadorController) {
         return MockMvcBuilders.standaloneSetup(apostadorController).build();
+    }
+
+    @Bean
+    public MockMvc mockMvcCarrera(CarreraController carreraController) {
+        return MockMvcBuilders.standaloneSetup(carreraController).build();
     }
 }

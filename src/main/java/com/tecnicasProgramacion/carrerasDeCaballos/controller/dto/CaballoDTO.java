@@ -29,5 +29,6 @@ public class CaballoDTO {
         porcentajeDePago = carrera.porcentajeDePago(caballo);
     }
 
+    public CaballoDTO(){}
 
 }

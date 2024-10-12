@@ -15,4 +15,6 @@ public class CarreraConCaballosDTO {
         this.nombre = carrera.getNombre();
         this.caballos = carrera.getCompetidores().stream().map(CaballoDTO::new).toList();
     }
+
+    public CarreraConCaballosDTO(){}
 }

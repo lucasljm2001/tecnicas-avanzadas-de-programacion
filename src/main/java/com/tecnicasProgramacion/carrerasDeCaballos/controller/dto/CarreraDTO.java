@@ -31,4 +31,6 @@ public class CarreraDTO {
         this.nombre = carrera.getNombre();
         this.tipoCarrera = carrera.getTipoCarrera();
     }
+
+    public CarreraDTO(){}
 }

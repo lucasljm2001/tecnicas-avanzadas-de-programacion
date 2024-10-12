@@ -16,4 +16,6 @@ public class CarreraTerminadaDTO {
         this.ganador = new CaballoDTO(carrera.getGanador());
         this.segundo = new CaballoDTO(carrera.getSegundo());
     }
+
+    public CarreraTerminadaDTO(){}
 }
