@@ -1,5 +1,8 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.utils;
 
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Caballo;
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Carrera;
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera.TipoDeCarrera;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.impl.ApostadorServiceImpl;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.impl.ApuestaServiceImpl;
 import com.tecnicasProgramacion.carrerasDeCaballos.service.impl.CaballoServiceImpl;
@@ -7,8 +10,10 @@ import com.tecnicasProgramacion.carrerasDeCaballos.service.impl.CarreraServiceIm
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +36,27 @@ public class DataSpringServiceImpl  implements DataSpringService {
 
     @Autowired
     private ApuestaServiceImpl apuestaService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+    @Override
+    public void loadData() {
+        apostadorService.crearApostador("1234", passwordEncoder.encode("admin"), "admin", true);
+        apostadorService.crearApostador("567", passwordEncoder.encode("pepe"), "pepe", false);
+        Caballo caballo = caballoService.crearCaballo("veloz", 50.0f, 10f, 5);
+        Caballo caballo1 = caballoService.crearCaballo("caballo1", 40f, 22f, 10);
+        Caballo caballo2 = caballoService.crearCaballo("caballo2", 20f, 33f, 23);
+        Caballo caballo3 = caballoService.crearCaballo("caballo3", 44f, 11f, 33);
+        Carrera carrera = carreraService.crearCarrera(LocalDateTime.of(2024, 12, 10, 10, 10), 100, "carrera1", TipoDeCarrera.CARRERA_NORMAL);
+        carreraService.agregarCaballo(carrera, caballo);
+        carreraService.agregarCaballo(carrera, caballo1);
+        carreraService.agregarCaballo(carrera, caballo2);
+        Carrera carrera2 = carreraService.crearCarrera(LocalDateTime.of(2024, 12, 10, 10, 10), 100, "carrera2", TipoDeCarrera.CARRERA_NORMAL);
+        Carrera iniciada = carreraService.crearCarrera(LocalDateTime.of(2024, 9, 10, 10, 10), 100, "iniciada", TipoDeCarrera.CARRERA_NORMAL);
+
+    }
 
     @Override
     public void cleanUp() {

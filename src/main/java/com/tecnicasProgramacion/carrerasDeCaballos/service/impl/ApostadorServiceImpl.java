@@ -65,6 +65,8 @@ public class ApostadorServiceImpl  implements ApostadorService, UserDetailsServi
         return apostadorRepository.findByDni(dni);
     }
 
+
+
     @Override
     public Apuesta apostar(String tipo, float monto, String caballo, String carrera) {
         Apostador apostador = apostadorRepository.findByDni(SecurityContextHolder.getContext().getAuthentication().getName()).get();
@@ -79,7 +81,13 @@ public class ApostadorServiceImpl  implements ApostadorService, UserDetailsServi
         Apuesta apuesta = apostador.apostar(carreraRecuperada, caballoRecuperado, monto, tipo);
         apuestaService.crearApuesta(apuesta);
         carreraService.modificarCarrera(carreraRecuperada);
+        apostadorRepository.save(apostador);
         return apuesta;
+    }
+
+    @Override
+    public Optional<Apostador> recuperarPorNombre(String nombre) {
+        return apostadorRepository.findByNombre(nombre);
     }
 
     @Override

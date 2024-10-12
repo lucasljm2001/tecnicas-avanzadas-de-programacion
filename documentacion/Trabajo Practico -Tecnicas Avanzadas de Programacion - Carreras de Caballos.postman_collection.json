@@ -518,7 +518,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NjciLCJpYXQiOjE3Mjg2NzUxOTUsImV4cCI6MTcyODY3ODc5NX0.wlPYAf2PR0iMxfpmhINSt1cjTVQnRJ2Wg0LN8V1in5o",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -551,6 +551,87 @@
 				"description": "En este endpoint se simula el acto de apostar, como se puede ver, es necesario estar logueado, caso contrario, obtendremos la respuesta que se ve en el ejemplo `crear-apuesta-sin-autenticarse`. En el ejemplo dado se esta apostando a la carrera con el nombre carrera1 y al caballo llamado veloz, por lo que en caso de querer apostar a otro caballo y/o carrera se deberan cambiar esos parametros en la request\n\nPor otro lado, son varias las excepciones que tenemos, como que alguno de los parametros requeridos sea omitido, que se ilustra en los ejemplos `crear-apuesta-sin-tipo` y `crear-apuesta-sin-monto`, ademas de que si el monto es negativo tenemos la respuesta del ejemplo `crear-apuesta-con-monto-negativo`\n\nEn lo que respecta a las excepciones de negocio propiamente dichas, tenemos que revisar que no se pueda apostar a una carrera ya iniciada, que no sea posible apostar a un caballo que no exista, o que no este inscripto en la carrera (lo mismo vale para la carrera) o que no se apueste dos veces en la misma carrera\n\nFinalmente, para ver una apuesta realizada correctamente, tenemos el ejemplo `apuesta-correcta`"
 			},
 			"response": [
+				{
+					"name": "apuesta-correcta",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipo\" : \"Ganador\",\n    \"monto\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/apostador/apostar/carrera1/caballo1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"apostador",
+								"apostar",
+								"carrera1",
+								"caballo1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 11 Oct 2024 19:39:31 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"tipo\": \"Ganador\",\n    \"monto\": 100,\n    \"caballo\": \"caballo1\",\n    \"carrera\": \"carrera1\"\n}"
+				},
 				{
 					"name": "crear-apuesta-sin-autenticarse",
 					"originalRequest": {
@@ -1172,87 +1253,6 @@
 					"body": "{\n    \"mensaje\": \"No existe esa carrera\"\n}"
 				},
 				{
-					"name": "apuesta-correcta",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"tipo\" : \"Ganador\",\n    \"monto\": 100\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/apostador/apostar/carrera1/caballo1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"apostador",
-								"apostar",
-								"carrera1",
-								"caballo1"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff"
-						},
-						{
-							"key": "X-XSS-Protection",
-							"value": "0"
-						},
-						{
-							"key": "Cache-Control",
-							"value": "no-cache, no-store, max-age=0, must-revalidate"
-						},
-						{
-							"key": "Pragma",
-							"value": "no-cache"
-						},
-						{
-							"key": "Expires",
-							"value": "0"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "DENY"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 11 Oct 2024 19:39:31 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"tipo\": \"Ganador\",\n    \"monto\": 100,\n    \"caballo\": \"caballo1\",\n    \"carrera\": \"carrera1\"\n}"
-				},
-				{
 					"name": "apostar-en-la-misma-carrera",
 					"originalRequest": {
 						"method": "POST",
@@ -1339,7 +1339,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NjciLCJpYXQiOjE3Mjg2NzUxOTUsImV4cCI6MTcyODY3ODc5NX0.wlPYAf2PR0iMxfpmhINSt1cjTVQnRJ2Wg0LN8V1in5o",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -1515,7 +1515,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0IiwiaWF0IjoxNzI4Njc2MzAxLCJleHAiOjE3Mjg2Nzk5MDF9.Qxj0mVeNT8KD_kWbqabCa8CmadRNA0KV3I74y52Up-k",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -1546,81 +1546,6 @@
 				"description": "Este endpoint solo puede ser utilizado por los administradores logueados, por lo que en caso de no serlo, se mostrara la respuesta del ejemplo `crear-sin-ser-administrador` o `crear-sin-loguearse` segun corresponda. En cuanto a las reglas de negocio que debe seguir este endpoint, son que no se puedan crear dos carreras con el mismo nombre, que tengan todos los datos, que la fecha sea valida, que el nombre no sea vacido, y que la distancia no sea menor o igual a cero, todas estas excepciones se pueden verificar en los ejemplos correspondientes"
 			},
 			"response": [
-				{
-					"name": "crear-sin-ser-administrador",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"fechaYHora\" : \"2024-11-12T00:00:00\",\n    \"distancia\" : 122,\n    \"nombre\" : \"carrera_prueba2\",\n    \"tipoCarrera\" : \"CARRERA_NORMAL\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/carrera/crear",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"carrera",
-								"crear"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff"
-						},
-						{
-							"key": "X-XSS-Protection",
-							"value": "0"
-						},
-						{
-							"key": "Cache-Control",
-							"value": "no-cache, no-store, max-age=0, must-revalidate"
-						},
-						{
-							"key": "Pragma",
-							"value": "no-cache"
-						},
-						{
-							"key": "Expires",
-							"value": "0"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "DENY"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 11 Oct 2024 19:51:05 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "close"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"mensaje\": \"Solo los administradores pueden modificar carreras\"\n}"
-				},
 				{
 					"name": "crear-sin-loguearse",
 					"originalRequest": {
@@ -2153,6 +2078,85 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"mensaje\": \"El nombre de la carrera no puede ser vacio\"\n}"
+				},
+				{
+					"name": "crear-sin-ser-administrador",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fechaYHora\" : \"2024-11-12T00:00:00\",\n    \"distancia\" : 122,\n    \"nombre\" : \"carrera_prueba2\",\n    \"tipoCarrera\" : \"CARRERA_NORMAL\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/carrera/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"crear"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 12 Oct 2024 14:25:20 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"mensaje\": \"Solo los administradores pueden modificar carreras\"\n}"
 				}
 			]
 		},
@@ -2164,7 +2168,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0IiwiaWF0IjoxNzI4Njc2NjQ3LCJleHAiOjE3Mjg2ODAyNDd9.jefu76Ya3yuZzlAt0JOcsCCBGeQz9eGVrUQ4c14hXcM",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -2172,7 +2176,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/carrera/agregarCaballo/carrera1123/caballo1",
+					"raw": "http://localhost:8080/carrera/agregarCaballo/carrera1/caballo3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -2181,11 +2185,11 @@
 					"path": [
 						"carrera",
 						"agregarCaballo",
-						"carrera1123",
-						"caballo1"
+						"carrera1",
+						"caballo3"
 					]
 				},
-				"description": "De igual forma que el endpoint anterior, el usuario debe estar logueeado y ser admin, ademas, se valida como se ve en los ejemplos, que tanto el caballo como la carrera a agregar existan previamente."
+				"description": "De igual forma que el endpoint anterior, el usuario debe estar logueado y ser admin, ademas, se valida como se ve en los ejemplos, que tanto el caballo como la carrera a agregar existan previamente."
 			},
 			"response": [
 				{
@@ -2259,74 +2263,6 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"code\": 401,\n    \"payload\": \"No estas autenticado\"\n}"
-				},
-				{
-					"name": "agregar-sin-ser-admin",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/carrera/agregarCaballo/carrera1/caballo1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"carrera",
-								"agregarCaballo",
-								"carrera1",
-								"caballo1"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff"
-						},
-						{
-							"key": "X-XSS-Protection",
-							"value": "0"
-						},
-						{
-							"key": "Cache-Control",
-							"value": "no-cache, no-store, max-age=0, must-revalidate"
-						},
-						{
-							"key": "Pragma",
-							"value": "no-cache"
-						},
-						{
-							"key": "Expires",
-							"value": "0"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "DENY"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 11 Oct 2024 19:57:09 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "close"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"mensaje\": \"Solo los administradores pueden modificar carreras\"\n}"
 				},
 				{
 					"name": "caballo-agregado",
@@ -2535,6 +2471,78 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"mensaje\": \"No existe esa carrera\"\n}"
+				},
+				{
+					"name": "agregar-sin-ser-admin",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carrera/agregarCaballo/carrera1/caballo1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"agregarCaballo",
+								"carrera1",
+								"caballo1"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 12 Oct 2024 14:26:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"mensaje\": \"Solo los administradores pueden modificar carreras\"\n}"
 				}
 			]
 		},
@@ -2546,7 +2554,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0IiwiaWF0IjoxNzI4Njc2ODYxLCJleHAiOjE3Mjg2ODA0NjF9.5Riks1287Wjctlf9a9ItgP1vSmzeJyaDou0v-yrfPe8",
+							"value": "{{access_token}}",
 							"type": "string"
 						}
 					]
@@ -2639,73 +2647,6 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"code\": 401,\n    \"payload\": \"No estas autenticado\"\n}"
-				},
-				{
-					"name": "iniciar-sin-ser-admin",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/carrera/iniciar/carrera1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"carrera",
-								"iniciar",
-								"carrera1"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff"
-						},
-						{
-							"key": "X-XSS-Protection",
-							"value": "0"
-						},
-						{
-							"key": "Cache-Control",
-							"value": "no-cache, no-store, max-age=0, must-revalidate"
-						},
-						{
-							"key": "Pragma",
-							"value": "no-cache"
-						},
-						{
-							"key": "Expires",
-							"value": "0"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "DENY"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Transfer-Encoding",
-							"value": "chunked"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 11 Oct 2024 20:00:32 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "close"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"mensaje\": \"Solo los administradores pueden modificar carreras\"\n}"
 				},
 				{
 					"name": "iniciar-carrera-inexistente",
@@ -2911,6 +2852,77 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"mensaje\": \"La carrera ya fue definida\"\n}"
+				},
+				{
+					"name": "iniciar-sin-ser-admin",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carrera/iniciar/carrera1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"iniciar",
+								"carrera1"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 12 Oct 2024 14:27:24 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"mensaje\": \"Solo los administradores pueden modificar carreras\"\n}"
 				}
 			]
 		}

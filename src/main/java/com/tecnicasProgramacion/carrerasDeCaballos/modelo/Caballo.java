@@ -26,6 +26,8 @@ public class Caballo {
     @Getter
     @Setter
     private int edad;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Carrera> carreras;
 
 
 

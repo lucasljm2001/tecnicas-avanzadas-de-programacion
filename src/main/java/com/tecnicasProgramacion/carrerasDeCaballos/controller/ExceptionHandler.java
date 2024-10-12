@@ -81,7 +81,7 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler
     public ResponseEntity<ErrorDTO> handleNoEsAdmin(NoEsAdminException e) {
-        return ResponseEntity.badRequest().body(new ErrorDTO(e.getMessage()));
+        return ResponseEntity.status(401).body(new ErrorDTO(e.getMessage()));
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler

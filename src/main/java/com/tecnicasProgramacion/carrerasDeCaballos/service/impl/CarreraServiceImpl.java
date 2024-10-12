@@ -54,6 +54,7 @@ public class CarreraServiceImpl implements CarreraService {
     @Override
     @Transactional
     public Carrera agregarCaballo(Carrera carrera, Caballo caballo) {
+        // PREGUNTAR, TENGO QUE DEJAR AGREGAR UN CABALLO A UNA CARRERA QUE YA SE JUGO? NO AFECTA PERO NO SE SI ES CORRECTO
         Optional<Carrera> carreraRecuperada = carreraRepository.findById(carrera.getId());
         if (carreraRecuperada.isEmpty()) throw new NoExisteLaCarreraException();
         carreraRecuperada.get().agregarCompetidor(caballo);

@@ -13,4 +13,6 @@ public interface ApostadorService {
     public Optional<Apostador> recuperarApostador(String dni);
 
     public Apuesta apostar(String tipo, float monto, String caballo, String carrera);
+
+    public Optional<Apostador> recuperarPorNombre(String nombre);
 }

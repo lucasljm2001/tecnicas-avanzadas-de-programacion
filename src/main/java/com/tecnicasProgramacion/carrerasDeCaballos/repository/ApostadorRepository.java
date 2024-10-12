@@ -5,4 +5,6 @@ import java.util.Optional;
 
 public interface ApostadorRepository extends JpaRepository<Apostador, Long> {
     Optional<Apostador> findByDni(String dni);
+
+    Optional<Apostador> findByNombre(String nombre);
 }

@@ -52,9 +52,15 @@ public class ApostadorController {
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody @Valid ApostadorLoginDTO authRequest) {
         try {
+            if (apostadorService.recuperarPorNombre(authRequest.getNombre()).isEmpty()) {
+                return ResponseEntity.status(401).body(new ErrorDTO("Credenciales invalidas"));
+            }
+
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getDni(), authRequest.getClave())
             );
+
+
 
             final String jwt = jwtService.generateToken(authRequest.getDni());
 
