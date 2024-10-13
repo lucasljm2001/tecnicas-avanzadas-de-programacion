@@ -19,7 +19,7 @@ realizada a partir de la tambien disponibilizada [coleccion de postman](document
 . A continuacion se deja una imagen del diagrama de clases del modelo, ademas
 que se deja el informe del [trabajo practico en formato PDF](documentacion/Trabajo%20Practico%29Integrador%20Primera%20Entrega%20Lucas%20Martinez.pdf), correspondiente
 a la primera etapa del mismo.
-![img_1.png](documentacion/Diagrama%20de%20clases.png)
+![img_1.png](documentacion/diagrama-de-clases.png)
 
 ## Instalacion
 Para instalar el proyecto, primero se debera clonar el repositorio,
