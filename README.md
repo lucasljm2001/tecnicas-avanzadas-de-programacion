@@ -39,6 +39,7 @@ es posible instalar un IDE como [IntelliJ](https://www.jetbrains.com/idea/downlo
 
 ### Instalacion con Docker
 Para ejecutar el proyecto mediante esta alternativa, se debe contar con [Docker](https://docs.docker.com/compose/install/) instalado,
-luego debe utilizarse el archivo [.env.example](.env.example) para crear un archivo .env con las variables de entorno necesarias, y
+luego debe utilizarse el archivo [.env.example](.env.example) para crear un archivo .env con las variables de entorno necesarias (un detalle importante, es que 
+la url debe ser como la propuesta en el ejemplo, ya que si se le pone localhost, docker no la podra leer, y el puerto debe ser el 3307, ya que la base mysql esta siendo mapeada a ese puerto), y
 finalmente para ejecutar el proyecto, se deben correr los comandos `docker build -t tecnicas-de-programacion .` y `docker-compose up`. Alternativamente
 es posible ahorrarse estos comandos, si se utiliza algun IDE como el antes mencionado.
