@@ -54,6 +54,7 @@ public class CarreraServiceImpl implements CarreraService {
     @Override
     @Transactional
     public Carrera agregarCaballo(Carrera carrera, Caballo caballo) {
+        // MISMA LOGICA, PERMITO AGREGAR A UNA CARRERA SIN DISCRIMINAR FECHA, YA QUE LA FECHA ES UN MAXIMO DE TIEMPO PARA QUE SE APUESTE
         Optional<Carrera> carreraRecuperada = carreraRepository.findById(carrera.getId());
         if (carreraRecuperada.isEmpty()) throw new NoExisteLaCarreraException();
         if (carreraRecuperada.get().getGanador()!=null) throw new CarreraYaJugadaException();
@@ -71,7 +72,8 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public Carrera iniciarCarrera(Carrera carrera) {
-        // PREGUNTAR SI TIENE SENTIDO QUE LA CARRERA INICIE SIN APUESTAS
+        // PREGUNTAR SI TIENE SENTIDO QUE LA CARRERA INICIE SIN APUESTAS Y SI TENGO QUE ESPERAR A LA HORA, ENTIENDO QUE LA HORA
+        // ES COMO UN MAXIMO PARA APOSTAR
         if (carrera.getGanador()!=null) throw new CarreraYaJugadaException();
         carrera.determinarPosicones();
         return carreraRepository.save(carrera);

@@ -119,9 +119,7 @@ public abstract class Carrera {
         this.apuestas.forEach(this::premio);
     }
 
-    public boolean esCarreraIniciada(){
-        return this.fechaYHora.isBefore(LocalDateTime.now());
-    }
+
 
     private long apuestasAlMismoCaballo(Caballo caballo){
         return apuestas.stream().filter(apuesta1 -> apuesta1.getCaballo().getNombre().equals(caballo.getNombre())).count();

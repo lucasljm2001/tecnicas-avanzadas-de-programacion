@@ -31,6 +31,6 @@ public class CarreraDeObstaculos  extends Carrera {
 
     @Override
     public TipoDeCarrera getTipoCarrera() {
-        return TipoDeCarrera.CARRERA_NORMAL;
+        return TipoDeCarrera.CARRERA_DE_OBSTACULOS;
     }
 }
