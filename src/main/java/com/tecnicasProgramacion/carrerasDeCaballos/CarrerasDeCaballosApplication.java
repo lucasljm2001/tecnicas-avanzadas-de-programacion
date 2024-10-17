@@ -42,6 +42,7 @@ public class CarrerasDeCaballosApplication {
 	@Autowired
 	private ApuestaService apuestaServiec;
 
+
 	@EventListener
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		apostadorService.crearApostador("1234", passwordEncoder.encode("admin"), "admin", true);
@@ -55,7 +56,10 @@ public class CarrerasDeCaballosApplication {
 		carreraService.agregarCaballo(carrera, caballo1);
 		carreraService.agregarCaballo(carrera, caballo2);
 		Carrera carrera2 = carreraService.crearCarrera(LocalDateTime.of(2024, 12, 10, 10, 10), 100, "carrera2", TipoDeCarrera.CARRERA_NORMAL);
-		Carrera iniciada = carreraService.crearCarrera(LocalDateTime.of(2024, 9, 10, 10, 10), 100, "iniciada", TipoDeCarrera.CARRERA_NORMAL);
+		Carrera iniciada = carreraService.crearCarrera(LocalDateTime.now().plusSeconds(5), 100, "iniciada", TipoDeCarrera.CARRERA_NORMAL);
+		carreraService.agregarCaballo(iniciada, caballo);
+		carreraService.agregarCaballo(iniciada, caballo1);
+		carreraService.agregarCaballo(iniciada, caballo2);
 	}
 
 	@EventListener

@@ -13,10 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GanadorTest {
-    // PREGUNTAR, ME CREA UNA CONFIGURACION POR CADA ARCHIVO, NO SE COMO HACER PARA REUTILIZAR LA MISMA
 
     private Ganador ganador;
     private Carrera carrera;

@@ -127,8 +127,7 @@ public abstract class Carrera {
 
     public float porcentajeDePago(Caballo caballo){
         long apuestasAlMismoCaballo = apuestasAlMismoCaballo(caballo);
-        return  1 -  (0.05f * apuestasAlMismoCaballo); //  PREGUNTAR, ESTE CALCULO NO ES MUY REAL, ADEMAS PERMITE SALDO NEGATIVO, ES CORRECTO?
-        // TAMBIEN HACE QUE LA AGENCIA SE QUEDE CON UNA PARTE, LO CUAL ME PARECE CORRECTO
+        return  1 -  (0.05f * apuestasAlMismoCaballo);
     }
 
     public void premio(Apuesta apuesta){

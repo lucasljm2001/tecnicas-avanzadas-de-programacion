@@ -54,8 +54,11 @@ public class DataSpringServiceImpl  implements DataSpringService {
         carreraService.agregarCaballo(carrera, caballo1);
         carreraService.agregarCaballo(carrera, caballo2);
         Carrera carrera2 = carreraService.crearCarrera(LocalDateTime.of(2024, 12, 10, 10, 10), 100, "carrera2", TipoDeCarrera.CARRERA_NORMAL);
-        Carrera iniciada = carreraService.crearCarrera(LocalDateTime.of(2024, 9, 10, 10, 10), 100, "iniciada", TipoDeCarrera.CARRERA_NORMAL);
-
+        Carrera iniciada = carreraService.crearCarrera(LocalDateTime.now().plusSeconds(1), 100, "iniciada", TipoDeCarrera.CARRERA_NORMAL);
+        Carrera paraIniciar = carreraService.crearCarrera(LocalDateTime.now().plusSeconds(1), 100, "paraIniciar", TipoDeCarrera.CARRERA_NORMAL);
+        carreraService.agregarCaballo(paraIniciar, caballo);
+        carreraService.agregarCaballo(paraIniciar, caballo1);
+        carreraService.agregarCaballo(paraIniciar, caballo2);
     }
 
     @Override

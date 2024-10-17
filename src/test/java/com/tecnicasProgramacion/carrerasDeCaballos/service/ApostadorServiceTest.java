@@ -68,12 +68,11 @@ public class ApostadorServiceTest {
         carreraService.agregarCaballo(carrera, caballo1);
         carreraService.agregarCaballo(carrera, caballo2);
         Carrera carrera2 = carreraService.crearCarrera(LocalDateTime.of(2024, 12, 10, 10, 10), 100, "carrera2", TipoDeCarrera.CARRERA_NORMAL);
-        Carrera iniciada = carreraService.crearCarrera(LocalDateTime.of(2024, 9, 10, 10, 10), 100, "iniciada", TipoDeCarrera.CARRERA_NORMAL);
+        Carrera iniciada = carreraService.crearCarrera(LocalDateTime.now().plusNanos(100000), 100, "iniciada", TipoDeCarrera.CARRERA_NORMAL);
 
 
         Authentication authentication = new TestingAuthenticationToken("567", "pepe", "ROLE_USER");
 
-        // Establece la autenticación en el contexto de seguridad
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
     }

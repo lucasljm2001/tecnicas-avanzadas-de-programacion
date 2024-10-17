@@ -25,6 +25,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CarreraControllerTest {
@@ -65,24 +67,27 @@ public class CarreraControllerTest {
 
     @Test
     public void iniciarCarreraCorrectamente() throws Throwable {
-        CarreraTerminadaDTO carreraTerminadaDTO = mockMVCCarreraController.iniciarCarrera("carrera1", HttpStatus.OK);
-        Assertions.assertNotNull(carreraService.recuperarCarrera("carrera1").get().getGanador());
+        sleep(1000);
+        CarreraTerminadaDTO carreraTerminadaDTO = mockMVCCarreraController.iniciarCarrera("paraIniciar", HttpStatus.OK);
+        Assertions.assertNotNull(carreraService.recuperarCarrera("paraIniciar").get().getGanador());
     }
 
     @Test
     public void noSePuedeAgregarUnCaballoAUnaCarreraIniciada() throws Throwable {
-        CarreraTerminadaDTO carreraTerminadaDTO = mockMVCCarreraController.iniciarCarrera("carrera1", HttpStatus.OK);
+        sleep(1000);
+        CarreraTerminadaDTO carreraTerminadaDTO = mockMVCCarreraController.iniciarCarrera("paraIniciar", HttpStatus.OK);
         Assertions.assertThrows(ServletException.class, () -> {
-            mockMVCCarreraController.agregarCaballo("carrera1", "caballo3", HttpStatus.BAD_REQUEST);
+            mockMVCCarreraController.agregarCaballo("paraIniciar", "caballo3", HttpStatus.BAD_REQUEST);
         });
     }
 
     @Test
-    public void unaCarreraIniciadaNoApareceEnElListado() throws Throwable{
-        Assertions.assertEquals(2,  mockMVCCarreraController.listarCarreras("0", "2", HttpStatus.OK).size());
-        CarreraTerminadaDTO carreraTerminadaDTO = mockMVCCarreraController.iniciarCarrera("carrera1", HttpStatus.OK);
-        List<CarreraInformacionDTO> carreras = mockMVCCarreraController.listarCarreras("0", "2", HttpStatus.OK);
-        Assertions.assertEquals(1, carreras.size());
+    public void lasCarrerasIniciadasNoApareceEnElListado() throws Throwable{
+        List<CarreraInformacionDTO> carrerasAntes = mockMVCCarreraController.listarCarreras("0", "10", HttpStatus.OK);
+        Assertions.assertEquals(4,  carrerasAntes.size());
+        sleep(1000);
+        List<CarreraInformacionDTO> carreras = mockMVCCarreraController.listarCarreras("0", "10", HttpStatus.OK);
+        Assertions.assertEquals(2, carreras.size());
     }
 
 

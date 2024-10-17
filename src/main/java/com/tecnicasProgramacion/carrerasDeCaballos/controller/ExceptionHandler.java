@@ -95,6 +95,11 @@ public class ExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler
+    public ResponseEntity<ErrorDTO> handleNoEsLaHora(LaCarreraNoPuedeIniciarException e) {
+        return ResponseEntity.badRequest().body(new ErrorDTO(e.getMessage()));
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler
     public ResponseEntity<ErrorDTO> handleApuestaInexistente(ApuestaInexistenteException e) {
         return ResponseEntity.badRequest().body(new ErrorDTO(e.getMessage()));
     }

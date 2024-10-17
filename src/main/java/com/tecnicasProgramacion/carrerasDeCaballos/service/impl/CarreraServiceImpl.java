@@ -35,10 +35,9 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public Carrera crearCarrera(LocalDateTime fechaYHora, int distancia, String nombre, TipoDeCarrera tipoCarrera) {
-        // DEBERIA VALIDAR QUE UNA CARRERA NO SE CREE CON FECHA ANTES DE HOY? EN ESE CASO ME COMPLICARIA LAS PRUEBAS, PREGUNTAR
         if (distancia <= 0) throw new DistanciaInvalidaException();
         if ( nombre==null  || nombre.isBlank()) throw new NombreInvalidoException();
-        if (fechaYHora == null) throw new FechaInvalidaException();
+        if (fechaYHora == null || fechaYHora.isBefore(LocalDateTime.now())) throw new FechaInvalidaException();
         if (tipoCarrera != TipoDeCarrera.CARRERA_DE_OBSTACULOS && tipoCarrera != TipoDeCarrera.CARRERA_NORMAL) {
             throw new CarreraInexistenteException();
         }
@@ -54,10 +53,9 @@ public class CarreraServiceImpl implements CarreraService {
     @Override
     @Transactional
     public Carrera agregarCaballo(Carrera carrera, Caballo caballo) {
-        // MISMA LOGICA, PERMITO AGREGAR A UNA CARRERA SIN DISCRIMINAR FECHA, YA QUE LA FECHA ES UN MAXIMO DE TIEMPO PARA QUE SE APUESTE
         Optional<Carrera> carreraRecuperada = carreraRepository.findById(carrera.getId());
         if (carreraRecuperada.isEmpty()) throw new NoExisteLaCarreraException();
-        if (carreraRecuperada.get().getGanador()!=null) throw new CarreraYaJugadaException();
+        if (carreraRecuperada.get().getFechaYHora().isBefore(LocalDateTime.now())) throw new CarreraYaJugadaException();
         carreraRecuperada.get().agregarCompetidor(caballo);
         carreraRepository.saveAndFlush(carreraRecuperada.get());
         return carreraRecuperada.get();
@@ -72,9 +70,9 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public Carrera iniciarCarrera(Carrera carrera) {
-        // PREGUNTAR SI TIENE SENTIDO QUE LA CARRERA INICIE SIN APUESTAS Y SI TENGO QUE ESPERAR A LA HORA, ENTIENDO QUE LA HORA
-        // ES COMO UN MAXIMO PARA APOSTAR
         if (carrera.getGanador()!=null) throw new CarreraYaJugadaException();
+        // REVISAR TESTS DE CONTROLLER DE CARRERA, TAMBIEN CAMBIAR EL SETUP PARA INCLUIR EJEMPLOS DE CARRERAS INICIADAS
+        if(carrera.getFechaYHora().isAfter(LocalDateTime.now())) throw new LaCarreraNoPuedeIniciarException();
         carrera.determinarPosicones();
         return carreraRepository.save(carrera);
     }
