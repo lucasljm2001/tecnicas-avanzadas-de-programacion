@@ -134,7 +134,7 @@ public abstract class Carrera {
 
         Apostador apostador = apuesta.getApostador();
 
-        float montoASumar = apuesta.montoGanado(this) - porcentajeDePago(apuesta.getCaballo());
+        float montoASumar = apuesta.montoGanado(this) * porcentajeDePago(apuesta.getCaballo());
 
         apostador.setMontoAcumulado(apostador.getMontoAcumulado() + montoASumar);
     }

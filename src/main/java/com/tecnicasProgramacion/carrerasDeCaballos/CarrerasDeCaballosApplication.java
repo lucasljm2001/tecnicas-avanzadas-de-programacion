@@ -1,5 +1,6 @@
 package com.tecnicasProgramacion.carrerasDeCaballos;
 
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Apostador;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Caballo;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.Carrera;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera.TipoDeCarrera;
@@ -14,6 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
@@ -45,8 +48,8 @@ public class CarrerasDeCaballosApplication {
 
 	@EventListener
 	public void onApplicationEvent(ApplicationReadyEvent event) {
-		apostadorService.crearApostador("1234", passwordEncoder.encode("admin"), "admin", true);
-		apostadorService.crearApostador("567", passwordEncoder.encode("pepe"), "pepe", false);
+		Apostador admin = apostadorService.crearApostador("1234", passwordEncoder.encode("admin"), "admin", true);
+		Apostador pepe = apostadorService.crearApostador("567", passwordEncoder.encode("pepe"), "pepe", false);
 		Caballo caballo = caballoService.crearCaballo("veloz", 50.0f, 10f, 5);
 		Caballo caballo1 = caballoService.crearCaballo("caballo1", 40f, 22f, 10);
 		Caballo caballo2 = caballoService.crearCaballo("caballo2", 20f, 33f, 23);
@@ -60,6 +63,13 @@ public class CarrerasDeCaballosApplication {
 		carreraService.agregarCaballo(iniciada, caballo);
 		carreraService.agregarCaballo(iniciada, caballo1);
 		carreraService.agregarCaballo(iniciada, caballo2);
+		UsernamePasswordAuthenticationToken authAdmin = new UsernamePasswordAuthenticationToken(admin, null, admin.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authAdmin);
+		apostadorService.apostar("Ganador", 100, "veloz", "iniciada");
+		UsernamePasswordAuthenticationToken authPepe= new UsernamePasswordAuthenticationToken(pepe, null, pepe.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authPepe);
+		apostadorService.apostar("Segundo", 100, "veloz", "iniciada");
+		SecurityContextHolder.getContext().setAuthentication(null);
 	}
 
 	@EventListener
