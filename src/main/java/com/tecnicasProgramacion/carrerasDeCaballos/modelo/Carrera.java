@@ -1,5 +1,6 @@
 package com.tecnicasProgramacion.carrerasDeCaballos.modelo;
 
+import com.tecnicasProgramacion.carrerasDeCaballos.modelo.apuesta.EstadoApuesta;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.carrera.TipoDeCarrera;
 import com.tecnicasProgramacion.carrerasDeCaballos.modelo.exception.NoHaySuficientesCaballosException;
 import jakarta.persistence.*;
@@ -146,6 +147,21 @@ public abstract class Carrera {
     }
 
     public abstract TipoDeCarrera getTipoCarrera();
+
+    public EstadoApuesta getEstadoApuesta(Apuesta apuesta){
+        if (this.getGanador() != null) {
+            if ((apuesta.getClass().getSimpleName().equals("Ganador") && this.getGanador().getNombre().equals(apuesta.getCaballo().getNombre()))
+                    || (apuesta.getClass().getSimpleName().equals("Segundo")
+                        && (this.getGanador().getNombre().equals(apuesta.getCaballo().getNombre())
+                            || this.getSegundo().getNombre().equals(apuesta.getCaballo().getNombre()))) ) {
+                return EstadoApuesta.Ganada;
+            } else {
+                return EstadoApuesta.Perdida;
+            }
+        } else {
+            return EstadoApuesta.EnCurso;
+        }
+    }
 
 
 }
