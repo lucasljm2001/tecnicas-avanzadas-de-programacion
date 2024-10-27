@@ -16,7 +16,7 @@ public class JwtService {
 
     private String jwtSecret = "2D4A614E645267556B58703273357638792F423F4428472B4B6250655368566D";
 
-    private long jwtExpirationDate = 3600000; //1h = 3600s and 3600*1000 = 3600000 milliseconds
+    private long jwtExpirationDate = 3600L * 1000 * 1000;
 
 
     public String generateToken(String username) {
