@@ -17,7 +17,7 @@ requerimientos:
 Se disponibiliza la [documentacion de la API](https://documenter.getpostman.com/view/31014906/2sAXxS7qt5) 
 realizada a partir de la tambien disponibilizada [coleccion de postman](documentacion/Trabajo%20Practico%20-Tecnicas%20Avanzadas%20de%20Programacion%20-%20Carreras%20de%20Caballos.postman_collection.json)
 . A continuacion se deja una imagen del diagrama de clases del modelo, ademas
-que se deja el informe del [trabajo practico en formato PDF](documentacion/Trabajo%20Practico%29Integrador%20Primera%20Entrega%20Lucas%20Martinez.pdf), correspondiente
+que se deja el informe del [trabajo practico en formato PDF](documentacion/Trabajo%20Practico%20Integrador%20Primera%20Entrega%20Lucas%20Martinez.pdf), correspondiente
 a la primera etapa del mismo.
 ![img_1.png](documentacion/diagrama-de-clases.png)
 
